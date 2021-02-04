@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container"></div>
+<div class="container">
+  <div class="card">
+    <form method="POST">
+      {%csrf_token%}
+      {{form.title}}
+      <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+  </div>  
+</div>
+
+<div class="container">
+    <h2>Todo List</h2>            
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for todo in todolist %}
+        <tr>
+          {% if todo.completed == True %}
+          <td><strike>{{todo.title}}</strike></td>
+          {% else %}
+          <td><span>{{todo.title}}</span></td>
+          {% endif %}
+          <td>
+            <a href="{% url 'update' todo.id %}" class="btn btn-warning">Update</a>
+            <a href="{% url 'delete' todo.id %}" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
